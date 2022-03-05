@@ -11,3 +11,12 @@
 	- [ ] Create a service mainfest file for the app
 	- [ ] Creaet the database
 
+
+## Errors
+1. Debendancies in the `pom.xml` file specfically
+	- Updating the springboot version to `2.1.6.RELEASE`
+	- Adding the `maven-surefire-plugin`
+
+## Resources
+- The option `-DskipTests` for skipping the unit tests from the build process [Resource](https://www.journaldev.com/33645/maven-commands-options-cheat-sheet)
+- 
