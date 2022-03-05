@@ -1,0 +1,32 @@
+version: '3'
+services:
+  db:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_DATABASE: "$MYSQL_DB_DNAME"
+      MYSQL_USER: "$MYSQL_DB_USERNAME"
+      MYSQL_PASSWORD: "$MYSQL_DB_PASSWORD"
+      MYSQL_ROOT_PASSWORD: "$MYSQL_DB_PASSWORD"
+    ports:
+      - '3000:3306'
+    volumes:
+      - mysql-db:/var/lib/mysql
+
+  web-app:
+    container_name: web-app
+    build: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    restart: always
+    environment:
+      MYSQL_DB_HOST: ${MYSQL_DB_HOST}
+      MYSQL_DB_PORT: ${MYSQL_DB_PORT}
+      MYSQL_DB_USERNAME: ${MYSQL_DB_USERNAME}
+      MYSQL_DB_PASSWORD: ${MYSQL_DB_PASSWORD}
+      MYSQL_DB_DNAME: ${MYSQL_DB_DNAME}
+
+volumes:
+  mysql-db:
