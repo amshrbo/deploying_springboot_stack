@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: game-demo
+  name: mysql-config
 data:
   MYSQL_DB_HOST: db  
   MYSQL_DB_PORT: 3306
