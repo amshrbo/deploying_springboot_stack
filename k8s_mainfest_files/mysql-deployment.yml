@@ -21,7 +21,7 @@ spec:
         - containerPort: 3306
         env:
         - name: MYSQL_DATABASE
-          valueFrom:
+          valueFrom: 
             configMapKeyRef:
               name: mysql-config
               key: MYSQL_DB_DNAME
@@ -29,14 +29,21 @@ spec:
           valueFrom:
             secretKeyRef:
               name: mysql-secret
-              key:  MYSQL_DB_USERNAME
-        - name: MYSQL_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: mysql-secret
-              key:  MYSQL_DB_PASSWORD
+              key: MYSQL_DB_USERNAME
         - name: MYSQL_ROOT_PASSWORD
           valueFrom:
             secretKeyRef:
               name: mysql-secret
-              key:  MYSQL_DB_PASSWORD
+              key: MYSQL_DB_PASSWORD
+        - name: MYSQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mysql-secret
+              key: MYSQL_DB_PASSWORD
+        volumeMounts:
+            - name: mysql-persistent-storage
+              mountPath: /var/lib/mysql
+      volumes:
+        - name: mysql-persistent-storage
+          persistentVolumeClaim:
+            claimName: mysql-pv-claim

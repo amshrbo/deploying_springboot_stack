@@ -37,8 +37,8 @@
 	
 	To put any values in a Secret file in kuberntes it needs to be base64 encoded
 	```
-	echo your_lovely_name | base64
-	echo your_strong_complicated_password | base64
+	echo -n your_lovely_name | base64
+	echo -n your_strong_complicated_password | base64
 	```
 
 	`mysql-secret.yaml` file
@@ -51,12 +51,18 @@
 	  MYSQL_DB_USERNAME: #your_lovely encode username
 	  MYSQL_DB_PASSWORD: #your_strong and complicated pass 
 	```
-
+1. Connect to mysql pod
+	```
+	exec -it pod/mysql-depl-57969854d7-fqc8h -- /bin/bash
+	mysql -u root -p # enter your pw in the prompt
+	```
 ---
 ## Errors and trouble shooting
 1. Debendancies in the `pom.xml` file specfically
 	- Updating the springboot version to `2.1.6.RELEASE`
 	- Adding the `maven-surefire-plugin`
+1. If your mysql pod doesn't start prompting this error `mysql: [ERROR] unknown option '--"'`
+	- This means you have problem with the encoding you shall use an encoding website instead of the echo command
 
 ---
 ## Resources
