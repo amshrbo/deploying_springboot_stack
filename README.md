@@ -45,10 +45,10 @@
 	apiVersion: v1
 	kind: Secret
 	metadata:
-		name: mysql-secret
+	  name: mysql-secret
 	data:
-		MYSQL_DB_USERNAME: #your_lovely encode username
-		MYSQL_DB_PASSWORD: #your_strong and complicated pass 
+	  MYSQL_DB_USERNAME: #your_lovely encode username
+	  MYSQL_DB_PASSWORD: #your_strong and complicated pass 
 	```
 
 
