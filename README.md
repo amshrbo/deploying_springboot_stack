@@ -33,7 +33,23 @@
 
 ---
 ## kuberntes docs goes here
+1. **Create `mysql-secret.yaml` for storing your db credentials**
+	
+	To put any values in a Secret file in kuberntes it needs to be base64 encoded
+	```
+	echo your_lovely_name | base64
+	echo your_strong_complicated_password | base64
+	```
 
+	```
+	apiVersion: v1
+	kind: Secret
+	metadata:
+		name: mysql-secret
+	data:
+		MYSQL_DB_USERNAME: #your_lovely encode username
+		MYSQL_DB_PASSWORD: #your_strong and complicated pass 
+	```
 
 
 ---
