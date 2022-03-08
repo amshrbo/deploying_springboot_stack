@@ -51,11 +51,33 @@
 	  MYSQL_DB_USERNAME: #your_lovely encode username
 	  MYSQL_DB_PASSWORD: #your_strong and complicated pass 
 	```
-1. Connect to mysql pod
+	
+	Connect to mysql pod
 	```
 	exec -it pod/mysql-depl-57969854d7-fqc8h -- /bin/bash
 	mysql -u root -p # enter your pw in the prompt
 	```
+
+1. Run the files:
+	```
+	kubectl apply -f mysql-configmap.yml && kubectl apply -f mysql-secrets.yml
+	```
+	```
+	kubectl apply -f mysql-pvm-pvmc.yml
+	```
+	```
+	kubectl apply -f mysql-deployment.yml
+	```
+	```
+	kubectl apply -f mysql-service.yml
+	```
+	```
+	kubectl apply -f springboot-depl.yml
+	```
+	```
+	kubectl apply -f mysql-service.yml
+	```
+
 ---
 ## Errors and trouble shooting
 1. Debendancies in the `pom.xml` file specfically
