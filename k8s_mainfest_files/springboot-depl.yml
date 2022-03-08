@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: springboot-depl
+  labels: 
+    app: springboot
+spec: 
+  replicas: 1
+  selector:
+    matchLabels:
+      app: springboot
+  template:
+    metadata:
+      labels:
+        app: springboot
+    spec:
+      containers:
+      - name: springboot
+        image: amshrbo/springboot:v1
+        ports:
+        - containerPort: 8080
+        env:
+        - name: MYSQL_DB_PORT
+          value: "3306"
+        - name: MYSQL_DB_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: mysql-config
+              key:  MYSQL_DB_HOST
+        - name: MYSQL_DB_DNAME
+          valueFrom:
+            configMapKeyRef:
+              name: mysql-config
+              key:  MYSQL_DB_DNAME
+        - name: MYSQL_DB_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: mysql-secret
+              key:  MYSQL_DB_USERNAME
+        - name: MYSQL_DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mysql-secret
+              key:  MYSQL_DB_PASSWORD
+        
