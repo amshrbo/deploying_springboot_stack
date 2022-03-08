@@ -1,11 +1,17 @@
 # Spring Boot MySQL Example
 > - Setting up the dev, and production envs for a springboot stack (springboot, and mysql).
+> - Setting up the dev env using docker, docker volumes, and docker-compose.
+> - Setting up the prod env using k8s, and persisting the data using persistent volumes on k8s (tested in minikube).
 > - [Source repo](https://github.com/springframeworkguru/spring-boot-mysql-example) for the springboot app 
 
 ---
 ## TOC
 1. [**Deploy using docker and docker-compose**](#deploy-locally-using-docker)
-1. [**Deploy in Kuberentes**](provide a link for the docs here)
+1. [**Deploy in Kuberentes**](#deploy-on-k8s-tested-in-minikube)
+1. [**Errors and troubleshooting**](#errors-and-troubleshooting)
+1. [**Improvements**](#improvements) 
+1. [**Resources**](#resources)
+1. [**LICENSE**](./LICENSE)  
 
 ---
 ## Deploy locally using Docker
@@ -31,7 +37,7 @@
 	```
 
 ---
-## Deploy on k8s (tested in minikube)
+## Deploy on k8s tested in minikube
 1. **Create `mysql-secret.yaml` for storing your db credentials**
 	
 	To put any values in a Secret file in kuberntes it needs to be base64 encoded
@@ -95,7 +101,7 @@
 	```
 
 ---
-## Errors and trouble shooting
+## Errors and troubleshooting
 1. Debendancies in the `pom.xml` file specfically
 	- Updating the springboot version to `2.1.6.RELEASE`
 	- Adding the `maven-surefire-plugin`
@@ -103,7 +109,7 @@
 	- This means you have problem with the encoding you shall use an encoding website instead of the echo command
 
 
-## Improvements can be made
+## Improvements
 - [ ] Try to enable hot reload for the local dev environment
 	- [ ] Search for a way that enables you to hot reload in springboot (e.g flask server in python)
 	- [ ] Mount the source dir to the docker image
@@ -119,3 +125,6 @@
 - [Why data in secrets is base64 encoded](https://stackoverflow.com/a/57670114)
 - [Creating a mysql volume and volume claim](https://dev.to/musolemasu/deploy-a-mysql-database-server-in-kubernetes-static-dpc)
 - [**Deploying a fullstack mysql+springboot+react using k8s**](https://www.callicoder.com/deploy-spring-mysql-react-nginx-kubernetes-persistent-volume-secret/)
+
+---
+## [LICENSE](./LICENSE)
