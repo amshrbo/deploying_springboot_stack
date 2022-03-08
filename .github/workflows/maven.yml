@@ -22,13 +22,16 @@ jobs:
           java-version: '11'
           distribution: 'adopt'
       
+      #starting up mysql
       - name: Starting mysql server
         run: |
           sudo /etc/init.d/mysql start
           mysql -e 'CREATE DATABASE ${{ env.MYSQL_DB_DNAME }};' -u${{ env.MYSQL_DB_USERNAME }} -p${{ env.MYSQL_DB_PASSWORD }}
 
+      # building the springboot project
       - name: Build the JAR file
         run: mvn clean install -DskipTests
 
+      # run the tests
       - name: Run the Tests
         run: mvn test
