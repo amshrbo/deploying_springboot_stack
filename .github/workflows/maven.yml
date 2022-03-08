@@ -1,4 +1,4 @@
-name: Java CI
+name: Java maven continous Integration
 
 on: [push]
 
@@ -6,24 +6,29 @@ jobs:
   build:
     runs-on: ubuntu-latest
     
-    steps:
-      - uses: mirromutth/mysql-action@v1.1
-        with:
-          host port: 3800 # Optional, default value is 3306. The port of host
-          container port: 3307 # Optional, default value is 3306. The port of container
-          character set server: 'utf8' # Optional, default value is 'utf8mb4'. The '--character-set-server' option for mysqld
-          collation server: 'utf8_general_ci' # Optional, default value is 'utf8mb4_general_ci'. The '--collation-server' option for mysqld
-          mysql version: '8.0' # Optional, default value is "latest". The version of the MySQL
-          mysql database: 'some_test' # Optional, default value is "test". The specified database which will be create
-          mysql root password: 'pass' # Required if "mysql user" is empty, default is empty. The root superuser password
-          mysql user: 'developer' # Required if "mysql root password" is empty, default is empty. The superuser for the specified database. Can use secrets, too
-          mysql password: 'pass' # Required if "mysql user" exists. The password for the "mysql user"
+    # Setting up the env variables 
+    env: 
+      MYSQL_DB_HOST: 'localhost'
+      MYSQL_DB_PORT: '3306'
+      MYSQL_DB_USERNAME: 'root'
+      MYSQL_DB_PASSWORD: ${{ secrets.ROOT_PASSWD }}
+      MYSQL_DB_DNAME: 'springbootdb'
           
+    steps:
       - uses: actions/checkout@v2
-      - name: Set up JDK 11
+      - name: Set up JDK 11 mvn env
         uses: actions/setup-java@v2
         with:
           java-version: '11'
           distribution: 'adopt'
-      - name: Build with Maven
-        run: mvn --batch-mode --update-snapshots verify
+      
+      - name: Starting mysql server
+        run: |
+          sudo /etc/init.d/mysql start
+          mysql -e 'CREATE DATABASE ${{ env.MYSQL_DB_DNAME }};' -u${{ env.MYSQL_DB_USERNAME }} -p${{ env.MYSQL_DB_PASSWORD }}
+
+      - name: Build the JAR file
+        run: mvn clean install -DskipTests
+
+      - name: Run the Tests
+        run: mvn test
