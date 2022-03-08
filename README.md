@@ -125,6 +125,7 @@
 - [Why data in secrets is base64 encoded](https://stackoverflow.com/a/57670114)
 - [Creating a mysql volume and volume claim](https://dev.to/musolemasu/deploy-a-mysql-database-server-in-kubernetes-static-dpc)
 - [**Deploying a fullstack mysql+springboot+react using k8s**](https://www.callicoder.com/deploy-spring-mysql-react-nginx-kubernetes-persistent-volume-secret/)
+- [**How to use mysql with github actions**](https://ovirium.com/blog/how-to-make-mysql-work-in-your-github-actions/)
 
 ---
 ## [LICENSE](./LICENSE)
